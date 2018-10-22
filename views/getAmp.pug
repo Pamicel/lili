@@ -1,0 +1,44 @@
+html
+    head
+        meta(charset=utf-8)
+        title getAmp
+    body
+        svg(width="200" height="200")
+            circle(id="circle" r="10" cx="100" cy="100")
+
+script.
+    var audioContext = new AudioContext();
+
+    function processAudio(e) {
+        var buffer = e.inputBuffer.getChannelData(0);
+        var out = e.outputBuffer.getChannelData(0);
+        var amp = 0;
+        console.log(buffer.length);
+
+        // Iterate through buffer to get max amplitude
+        for (var i = 0; i < buffer.length; i++) {
+            var loud = Math.abs(buffer[i]);
+            if(loud > amp) {
+                amp = loud;
+            }
+            // write input samples to output unchanged
+            out[i] = buffer[i];
+        }
+
+        var color = Math.round(amp * 255);
+        color = 'rgb(' + color + ',' + 0 + ',' + color + ')';
+        // set the svg circle's radius according to the audio's amplitude
+        circle.setAttribute('r',20 + (amp * 15));
+        circle.setAttribute('fill',color);
+    }
+
+    window.onload = function() {
+        var circle = document.getElementById('circle');
+        navigator.mediaDevices.getUserMedia({audio: true})
+        .then((stream) => {
+                var processor = audioContext.createScriptProcessor(2048,1,1);
+                processor.onaudioprocess = processAudio;
+                audioContext.createMediaStreamSource(stream).connect(processor);
+                processor.connect(audioContext.destination); })
+        .catch((err) => { alert("Microphone Error : " + err) });
+    };

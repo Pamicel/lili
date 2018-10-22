@@ -1,0 +1,14 @@
+#info, audio, button, #result {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+button#start_button {
+    padding: 0;
+    border: none;
+}
+
+body {
+    padding: 20px;
+}

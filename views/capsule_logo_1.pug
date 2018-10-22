@@ -1,0 +1,14 @@
+html
+    head
+        meta(charset='UTF-8')
+        title Capsule
+        link(rel='icon', type='image/png', href='../assets/favicon-s.png')
+
+        link(rel='stylesheet', type='text/css', href='/css/sandbox.css')
+    body(style={margin:'100vh 0 0 0', background:'white'})
+        #container(style={background:'white', padding:'20px'})
+            canvas(id='canvas' style={position:'absolute', left:'10vw', top:'10vh', width:'80vw', height:'80vh', background:'white'})
+    script(language='javascript', type='text/javascript', src='/js/libraries/jquery.min.js')
+    script(language='javascript', type='text/javascript', src='/js/libraries/paper-full.js')
+    script(language='javascript', type='text/paperscript', src='/js/capsule_logo_1/main.js' canvas='canvas')
+

@@ -1,0 +1,200 @@
+html
+    head
+        meta(charset='UTF-8')
+        title Pamicel.com
+        link(rel='icon', type='image/png', href='../assets/icons/favicon.ico')
+        style(type="text/css").
+          @font-face {
+            font-family: 'Chaparral Italic';
+            src: url('assets/fonts/ChaparralPro-LightIt.otf');
+            font-weight: 200;
+          }
+          @font-face {
+            font-family: 'Chaparral Italic';
+            src: url('assets/fonts/ChaparralPro-Italic.otf');
+            font-weight: 300;
+          }
+          @font-face {
+            font-family: 'Chaparral Italic';
+            src: url('assets/fonts/ChaparralPro-BoldIt.otf');
+            font-weight: 400;
+          }
+          @font-face {
+            font-family: 'Chaparral';
+            src: url('assets/fonts/ChaparralPro-Regular.otf');
+            font-weight: 300;
+          }
+          @font-face {
+            font-family: 'Chaparral';
+            src: url('assets/fonts/ChaparralPro-Bold.otf');
+            font-weight: 400;
+          }
+
+          body {
+            margin: 0;
+            background-color: #27AAE1;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+          
+          :root {
+            --brain-x: 2px;
+            --brain-y: 4px;
+            --brain-x-time: 10s;
+            --brain-y-time: 5s;
+            --brain-rot: -5deg;
+            --brain-container-rot: 5deg;
+            font-size: 16px;
+          }
+          
+          h1, h2 {
+            font-weight: normal;
+          }
+          
+          a {
+            color: white;
+          }
+          
+          .hello__big-sign {
+            font-family: 'Chaparral';
+            font-weight: 300;
+            color: white;
+            font-size: 2rem;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .hello__site-name {
+            font-family: 'Chaparral Italic';
+            font-weight: 400;
+            padding: 30px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: .8rem;
+            text-align: left;
+          }
+          .hello {
+            /*position: absolute;*/
+            left: 0;
+            color: white;
+            width: 100vw;
+            text-align: center;
+            padding-bottom: 100px;
+          }
+          
+          #brain {
+            position: absolute;
+            bottom: 16px;
+            right: 50%;
+            transform: translate(50%, 0);
+            background-color: white;
+            padding: 15px;
+            border-radius: 100% 100% 2px 2px;
+            width: 32px;
+            height: 32px;
+          }
+
+          /**/
+
+          .brain__img {
+            position: absolute;
+            /*bottom: -5%;*/
+            /*left: -5%;*/
+            -webkit-animation: xAxis var(--brain-x-time) infinite ease-out;
+            animation: xAxis var(--brain-x-time) infinite ease-out;
+            /*width: 10%;*/
+            /*height: 10%;*/
+          }
+
+          .brain__img img {
+            /*content: '';*/
+            display: block;
+            width: 32px;
+            height: 32px;
+            /*border-radius: 100%;*/
+            background-color: #fff;
+            -webkit-animation: yAxis var(--brain-y-time) infinite ease-in;
+            animation: yAxis var(--brain-y-time) infinite ease-in;
+          }
+
+          @-webkit-keyframes yAxis {
+            50% {
+              -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+              -webkit-transform: translateY(var(--brain-y));
+              transform: translateY(var(--brain-y)) rotate(var(--brain-rot));
+            }
+          }
+
+          @keyframes yAxis {
+            50% {
+              -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+              -webkit-transform: translateY(var(--brain-y));
+              transform: translateY(var(--brain-y)) rotate(var(--brain-rot));
+            }
+          }
+
+          @-webkit-keyframes xAxis {
+            50% {
+              -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+              -webkit-transform: translateX(var(--brain-x));
+              transform: translateX(var(--brain-x)) rotate(var(--brain-container-rot));
+            }
+          }
+
+          @keyframes xAxis {
+            50% {
+              -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+              -webkit-transform: translateX(var(--brain-x));
+              transform: translateX(var(--brain-x)) rotate(var(--brain-container-rot));
+            }
+          }
+    body
+      //- script(src="http://cdn.jsdelivr.net/mojs/latest/mo.js")
+      //- script(src="//cdn.jsdelivr.net/mojs-player/latest/mojs-player.min.js")
+      //- script(src="//cdn.jsdelivr.net/mojs-curve-editor/latest/mojs-curve-editor.min.js")
+      .hello
+        p.hello__site-name pamicel
+        p.hello__big-sign
+          a(href="/tyno")
+            |/tyno<br>
+          a(href="/tyno/A")
+            |/tyno/{lettre}<br>
+          a(href="/poster-beta")
+            |/poster-beta<br>
+          a(href="/poster_0")
+            |/poster_0<br>
+          a(href="/poster_1")
+            |/poster_1<br>
+          a(href="/poster_2")
+            |/poster_2<br>
+          a(href="/poster_3")
+            |/poster_3<br>
+          a(href="/poster_4")
+            |/poster_4<br>
+          a(href="/poster_5")
+            |/poster_5<br>
+          a(href="/poster_6")
+            |/poster_6<br>
+          a(href="/poster_7")
+            |/poster_7<br>
+          a(href="/capsule_logo_1")
+            |/capsule_logo_1<br>
+          a(href="/capsule_logo_2")
+            |/capsule_logo_2<br>
+          a(href="/ostendo_1")
+            |/ostendo_1<br>
+          a(href="/marie")
+            |/marie<br>
+            <br>
+          a(href="https://www.bonjourcapsule.fr/")
+            |bonjourcapsule.fr <br>
+          a(href="https://www.webtag.fr/")
+            |webtag.fr <br>
+      span#brain
+        .brain__img: img(src="assets/favicon.svg" alt="pamicel")
+    //- script(language='javascript', type='text/javascript', src='/js/index/moAnimation.js')

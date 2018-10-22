@@ -1,0 +1,260 @@
+body {
+    padding: 20px;
+    font: 12px system-ui;
+    text-rendering: optimizeLegibility;}
+
+canvas {
+    border-radius: 5px;
+    border: 1px solid lightblue;
+    transition: background-color 200ms ease-in-out;
+}
+
+#bgbutton {
+    position: absolute;
+    background-color: white;
+    top: 480px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 20;
+    height: 20;
+    border-radius: 100px;
+    border: 1px solid lightblue;
+    transition: background-color 100ms ease-in-out;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#container {
+    overflow: hidden;
+}
+
+    #displays {
+        width: 50%;
+        float: left;
+        height: 100%;
+    }
+
+        #timeLine {
+            margin: 60 20 0 20;
+            position: relative;
+            border: 1px solid black;
+            height: 50px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .segButtons {
+            text-align: center;
+            padding: 16px 0;
+            box-sizing: border-box;
+            background-color: buttonface;
+            height: 100%;
+            position: absolute;
+            overflow: hidden;
+            cursor: pointer;
+            cursor: hand;
+        }
+        .separators {
+            width: 14px;
+            height: 100%;
+            position: absolute;
+            transform: translate(-7px, 0);
+            /*z-index: 1;*/
+            cursor: col-resize;
+        }
+        .descriptions {
+            margin: 5 20 60 20;
+            text-align: right;
+        }
+
+        #info, #result {
+            margin: 20px;
+            padding: 40px 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            height: 100%;
+        }
+
+        #info, #result, #result textarea {
+            text-align: center;
+            font: 12px system-ui;
+            height: 300px;
+            max-height: 70%;
+        }
+
+        #result {
+            position: relative;
+            margin-bottom: 0px;
+        }
+        #result textarea {
+            position: relative;
+            top: -2px;
+            border: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #controls {
+            width: 50%;
+            float: right;
+        }
+
+        #buttons {
+            text-align: left;
+            vertical-align: middle;
+            width: 370px;
+            margin: auto;
+        }
+
+    #controls {}
+
+        button {
+            margin: 20px 0 0 20px;
+            padding: 20px;
+            border: 0;
+            border-radius: 100px;
+            cursor: pointer;
+            cursor: hand;
+        }
+
+        #micButton {
+            position: relative;
+            top: 5px;
+        }
+
+        button:focus {
+            outline: 0;
+        }
+
+        button#start_button {
+            padding: 0;
+            border: none;
+        }
+
+        button img {
+            border-radius: 100px;
+        }
+
+        form {
+            width: 300px;
+            margin: 70px auto 0 auto;
+        }
+
+        #numInputs {
+            width: 300px;
+            text-align: right;
+            margin: auto;
+        }
+
+        .in {
+            margin: 10px auto;
+            position: relative;
+        }
+
+        #scaleHider, #resultModif {
+            right: 25px;
+            background-color: buttonface;
+            position: absolute;
+            transform: translate(50%, -3px);
+            width: 54px;
+            height: 22px;
+            padding: 3px;
+            border-radius: 100px;
+            text-align: center;
+            top: 0;
+            transition: top 150ms, padding 100ms, border-radius 150ms, background-color 100ms, transform 150ms, right 150ms, width 150ms ease-in;
+            color: black;
+            font-size: 100%;
+            cursor: pointer;
+            cursor: hand;
+            overflow: hidden;
+        }
+
+        #resultModif {
+            top: 8px;
+            right: 35px;
+        }
+
+        #scaleHider.off, #resultModif.off {
+            font-size: 11px;
+        }
+
+        #scaleHider.on, #resultModif.on {
+            transform: translate(100%, 0);
+            right: -5px;
+            width: 20px;
+            padding: 0;
+            color: white;
+            border-radius: 5px;
+            border-bottom: 2px solid blue;
+            top: -2px;
+            transition: top 150ms, padding 100ms, border-radius 150ms, transform 150ms, right 150ms, width 150ms ease-out;
+        }
+        #scaleHider.on {
+            background-color: red;
+        }
+        #resultModif.on {
+            background-color: green;
+        }
+
+        #scaleHider span, #resultModif span {
+            position: relative;
+            top: 2px;
+        }
+
+        #colorDiv {
+            background-color: hsl(150, 50%, 50%);
+            transition: background-color 50ms;
+            font-size: 100%;
+        }
+
+        .symbols {
+            position: absolute;
+            right: -25px;
+            width: 20px;
+            height: 100%;
+            border-radius: 100px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 150%;
+        }
+        .symbols.up3 {
+            transform: translate(0, -3px);
+        }
+        .symbols.emojis {
+            font-size: 100%;
+        }
+
+        .symbols#scale {
+            transition: right 100ms ease-in;
+        }
+        .symbols#scale.auto {
+            right: -25px;
+        }
+        .symbols#scale.manual {
+            right: -45px;
+        }
+
+/*        #colorDiv span {
+            position: absolute;
+            display: inline-block;
+            vertical-align: middle;
+            left: -15px;
+            transform: translate(0, 2px);
+            color: black;
+        }*/
+
+        .notaBene {
+            font-size: 80%;
+        }
+
+        input[type='number']{
+            width: 50px;
+            text-align: right;
+        }
+
+        #audioContainer {
+            margin: 50px auto 20px auto;
+            width: 300px;
+            padding: 10px;
+            background-color: buttonface;
+        }

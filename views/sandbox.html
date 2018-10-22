@@ -1,0 +1,114 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>SandBox</title>
+    <link rel="icon" type="image/png" href="../assets/favicon-s.png"/>
+    <script language="javascript" type="text/javascript" src="/js/libraries/jquery-3.2.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/libraries/paper-full.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/libraries/watson-speech.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/objects/Vehicle.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/objects/NodeLetter.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/objects/TypoNode.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/objects/Punch.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/data/allLetters.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/sandbox/watson.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/sandbox.css"/>
+  </head>
+  <body style="margin:550px 0 0 0;background:black;"><img alt="Non je ne suis pas responsive" src="../assets/troll.gif" style="min-width:100%; min-height:120%; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); display:none; z-index:10;" id="troll"/>
+    <div id="container" style="background:white;padding:20px;">
+      <canvas id="canvas" style="position:absolute;left:10vw;top:60px;width:80vw;height:400px;background:black;"></canvas>
+      <div id="controls">
+        <div id="buttons">
+          <button id="refreshButton">Refresh ⤾</button>
+          <button id="exportSVG">Télécharger ⤓</button>
+          <button id="micButton" onclick="micOnOff(event)" style="display: inline-block;"><img alt="Start" id="startImg" src="../assets/sandbox/mic.gif"/></button>
+        </div>
+        <form>
+          <input type="checkbox" id="extendCheck" name="extend" checked="checked" style="display: none;"/>
+          <div id="numInputs">
+            <div class="in" id="bgbutton"></div>
+            <div class="in">
+              <label>Extension des lettres&nbsp;&nbsp;<span class="symbols">Ⓔ</span></label>
+              <input type="number" id="extValue" value="10" step="1"/>
+            </div>
+            <div class="in">
+              <label>Extension
+                <u>verticales</u> des lettres&nbsp;&nbsp;<span class="symbols">↕</span>
+              </label>
+              <input type="number" id="extYValue" value="0" step="0.1"/>
+            </div>
+            <div class="in">
+              <label>Extension des particules&nbsp;&nbsp;<span class="symbols">◉</span></label>
+              <input type="number" id="radValue" value="2" step="0.5" min="0.5"/>
+            </div>
+            <div class="in">
+              <div class="off" id="scaleHider"></div>
+              <label>Échelle d'affichage&nbsp;&nbsp;<span class="symbols auto" id="scale">🔍</span></label>
+              <input type="number" id="scaleValue" value="1" step="0.01" min="0.01"/>
+            </div>
+            <div class="in">
+              <div class="symbols" id="colorDiv"></div>
+              <label>Teinte Médiane&nbsp;&nbsp;</label>
+              <input type="number" id="midColorValue" value="150" step="5" min="-360" max="360"/>
+            </div>
+            <div class="in">
+              <label>Variation des Teintes&nbsp;&nbsp;<span class="symbols"> </span></label>
+              <input type="number" id="colVarValue" value="360" step="10" min="10" max="360"/>
+            </div>
+            <div class="notaBene">
+              <label>
+                (La teinte est une valeur sur le <a href="https://fr.wikipedia.org/wiki/Teinte_saturation_lumi%C3%A8re">cylindre HSL</a>,<br/>elle est comprise entre 0 et 360)</label>
+            </div>
+            <div class="in">
+              <label>Degré d'opacité&nbsp;&nbsp;<span class="symbols">◐</span></label>
+              <input type="number" id="opValue" value="0.50" step="0.05" min="0.00" max="1.00"/>
+            </div>
+          </div>
+        </form>
+        <div id="audioContainer">
+          <audio id="playback" controls="controls"></audio>
+        </div>
+      </div>
+      <div id="displays">
+        <div id="timeLine"></div>
+        <div class="descriptions">Timeline</div>
+        <div id="cloth" style="display: none;">
+          <div id="info" style="visibility: visible;">
+            <p id="infoStart" style="display: inline;">Cliquez sur le micro et dites un mot, une phrase, ou ce que vous voulez.</p>
+            <p id="infoSpeakNow" style="display:none;">Parlez maintenant.</p>
+            <p id="infoNoSpeech" style="display:none;">Aucune parole n'a été détectée, réglage nécessaire du <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                micro
+                ou vos parametres</a>.</p>
+            <p id="infoNoMicrophone" style="display:none;">Aucun microphone détecté, veuillez vous assurer qu'un microphone est installé et que les<a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">paramètres du microphone</a> sont bien configurés.</p>
+            <p id="infoAllow" style="display:none;">Clickez sur le boutton 'Autoriser' ci-dessus pour allumer le microphone.</p>
+            <p id="infoDenied" style="display:none;">Pas d'autorisation d'accès au microphone.</p>
+            <p id="infoBlocked" style="display:none;">
+              Permission d'accès refusée, pour modifier l'autorisation allez sur
+              chrome://settings/contentExceptions#media-stream
+            </p>
+            <p id="infoUpgrade" style="display:none;">L'API de reconnaissance vocale n'est pas supportée sur ce navigateur, pour bénéficier de la reconnaissance vocale, faire la mise à jour vers<a href="//www.google.com/chrome">Chrome</a> version 25 ou plus récent.</p>
+            <p id="infoOffline" style="display:none;">Vous êtes hors ligne, cet outil ne peux pas fonctionner hors connexion.</p>
+            <p id="infoAgain" style="display:none;">Aucune parole n'a été détectée, veuillez réessayer.</p>
+          </div>
+        </div>
+        <div id="result">
+          <div id="resultModif"></div>
+          <textarea rows="20" style="display: none;"></textarea>
+          <div id="recognitionSpans"><span class="final" id="finalSpan"></span><span class="interim" id="interimSpan"></span></div>
+        </div>
+        <div class="descriptions">Transcription</div>
+      </div>
+    </div>
+    <script language="javascript" type="text/javascript" src="//cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/sandbox/loading.js"></script>
+  </body>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/setup.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/setupAudio.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/timeLine.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/analyser.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/translator.js"></script>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/updater.js"></script>
+  <script language="javascript" type="text/paperscript" src="/js/sandbox/draw.js" canvas="canvas"></script>
+  <script language="javascript" type="text/javascript" src="/js/sandbox/controler.js"></script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Galettes</title>
+  </head>
+
+  <style media="screen">
+
+    :root {
+      font-size: 1vmin;
+    }
+    .oeuf, .jaune, .jambon, .galette, .fromage
+    {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 100%;
+    }
+
+    .galette {
+      width: 100rem;
+      height: 100rem;
+      background-color: rgb(125, 83, 30);
+      transform: translate(-50%, -50%) skewX(5deg);
+    }
+
+    .oeuf {
+      width: 50rem;
+      height: 50rem;
+      background: white;
+      top: 0;
+      left: 0;
+      transform: none;
+    }
+
+    .jaune {
+      width: 50%;
+      height: 50%;
+      top: 20%;
+      left: 25%;
+      transform: none;
+      background: yellow;
+    }
+
+    .fromage {
+      width: 100rem;
+      height: 100rem;
+      background: none;
+    }
+    .fromage::before, .fromage::after {
+      position: absolute;
+      width: 30rem;
+      height: 30rem;
+      background-color: beige;
+      border-radius: 100%;
+    }
+    .fromage::before {
+      content: "";
+      top: 20rem;
+      left: 22rem;
+    }
+    .fromage::after {
+      content: "";
+      top: 15rem;
+      left: 5rem;
+    }
+
+    .jambon {
+      width: 75rem;
+      height: 75rem;
+      background: pink;
+      transform: translate(-50%, -50%) skewX(-5deg);
+    }
+
+  </style>
+
+  <body>
+    <div class="galette">
+      <div class="oeuf">
+        <div class="jaune">
+        </div>
+      </div>
+    </div>
+    <div class="jambon">
+    </div>
+    <div class="fromage">
+    </div>
+  </body>
+</html>

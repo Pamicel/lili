@@ -1,0 +1,90 @@
+html
+    head
+        meta(charset='UTF-8')
+        title Poster
+        link(rel='icon', type='image/png', href='../assets/favicon.png')
+        script(language='javascript', type='text/javascript', src='/js/libraries/jquery.min.js')
+        script(language='javascript', type='text/javascript', src='/js/libraries/paper-full.js')
+        script(language='javascript', type='text/javascript', src='/js/libraries/watson-speech.min.js')
+
+        script(language='javascript', type='text/javascript', src='/js/objects/Vehicle.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/NodeLetter.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/TypoNode.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/Punch.js')
+        script(language='javascript', type='text/javascript', src='/js/data/allLetters.js')
+        script(language='javascript', type='text/javascript', src='/js/poster_6/watson.js')
+        script(src='https://code.jquery.com/jquery-3.2.1.js' integrity='sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=' crossorigin='anonymous')
+
+        link(rel='stylesheet', type='text/css', href='/css/poster_6.css')
+    body(style={margin:'70vh 0 0 0', background:'black'})
+        #container(style={background:'white', padding:'20px'})
+            canvas(id='canvas' style={position:'absolute', left:'10vw', top:'10vh', width:'80vw', height:'50vh', background:'black', padding:'20px'})
+            #buttons
+                button(id='micButton' onclick='micOnOff(event)' style='display: inline-block;')
+                    img(alt='Start' id='startImg' src='../assets/sandbox/mic.gif')
+                button(id='refreshButton') refresh
+                button(id='exportSVG') Download
+            #info(style='visibility: visible;')
+                p#infoStart(style='display: inline;')
+                    | Cliquez sur le micro et dites un mot, une phrase, ou ce que vous voulez.
+                p#infoSpeakNow(style='display:none')
+                    | Parlez maintenant.
+                p#infoNoSpeech(style='display:none')
+                    | Aucune parole n'a été détectée, réglage nécessaire du 
+                    a(href='//support.google.com/chrome/bin/answer.py?hl=en&answer=1407892')
+                        | micro
+                        | ou vos parametres
+                    | .
+                p#infoNoMicrophone(style='display:none')
+                    | Aucun microphone détecté, veuillez vous assurer qu'un microphone est installé et que les
+                    a(href='//support.google.com/chrome/bin/answer.py?hl=en&answer=1407892')
+                        | paramètres du microphone
+                    |  sont bien configurés.
+                p#infoAllow(style='display:none')
+                    | Clickez sur le boutton 'Autoriser' ci-dessus pour allumer le microphone.
+                p#infoDenied(style='display:none')
+                    | Pas d'autorisation d'accès au microphone.
+                p#infoBlocked(style='display:none')
+                    | Permission d'accès refusée, pour modifier l'autorisation allez sur
+                    | chrome://settings/contentExceptions#media-stream
+                p#infoUpgrade(style='display:none')
+                    | L'API de reconnaissance vocale n'est pas supportée sur ce navigateur, pour bénéficier de la reconnaissance vocale, faire la mise à jour vers
+                    a(href='//www.google.com/chrome') Chrome
+                    |  version 25 ou plus récent.
+                p#infoOffline(style='display:none')
+                    | Vous êtes hors ligne, cet outil ne peux pas fonctionner hors connexion.
+                p#infoAgain(style='display:none')
+                    | Aucune parole n'a été détectée, veuillez réessayer.
+            form
+                //- input(type='checkbox' id='translateXYCheck' name='translateXY')
+                //- |   translateXY
+                input(type='checkbox' id='extendCheck' name='extend' checked style='display: none;')
+                //- |   extend
+                //- input(type='checkbox' id='bounceCheck' name='extend' checked)
+                //- |   Collision with borders
+                //- input(type='checkbox' id='extendXCheck' name='extendX')
+                //- |   extendX
+                //- input(type='checkbox' id='extendYCheck' name='extendX')
+                //- |   extendY
+                #numInputs
+                    .in
+                        label Choisir le facteur d'extension des lettres&nbsp;&nbsp;
+                        input(type='number' id='extValue' value='10' step='1')
+                    .in
+                        label Choisir le facteur d'extension des particules&nbsp;&nbsp;
+                        input(type='number' id='radValue' value='2' step='0.5' min='0.5')
+                    .in
+                        label Choisir l'échelle d'affichage&nbsp;&nbsp;
+                        input(type='number' id='scaleValue' step='0.1' min='0.1')
+            audio(id='playback' controls)
+            #result
+                span(class='final' id='finalSpan')
+                span(class='interim' id='interimSpan')
+    //- textarea(id='textarea' onkeyup='parseTextarea()')
+    script(language='javascript', type='text/javascript', src='/js/poster_6/setup.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_6/setupAudio.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_6/analyser.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_6/translator.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_6/updater.js')
+    script(language='javascript', type='text/paperscript', src='/js/poster_6/draw.js', canvas='canvas')
+    script(language='javascript', type='text/javascript', src='/js/poster_6/controler.js')

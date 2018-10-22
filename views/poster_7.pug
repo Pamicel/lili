@@ -1,0 +1,133 @@
+html
+    head
+        meta(charset='UTF-8')
+        title Poster
+        link(rel='icon', type='image/png', href='../assets/favicon.png')
+        script(language='javascript', type='text/javascript', src='/js/libraries/jquery.min.js')
+        script(language='javascript', type='text/javascript', src='/js/libraries/paper-full.js')
+        script(language='javascript', type='text/javascript', src='/js/libraries/watson-speech.min.js')
+
+        script(language='javascript', type='text/javascript', src='/js/objects/Vehicle.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/NodeLetter.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/TypoNode.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/Punch.js')
+        script(language='javascript', type='text/javascript', src='/js/data/allLetters.js')
+        script(language='javascript', type='text/javascript', src='/js/poster_7/watson.js')
+
+        link(rel='stylesheet', type='text/css', href='/css/sandbox.css')
+    body(style={margin:'550px 0 0 0', background:'black'})
+        img(alt="Non je ne suis pas responsive" src="../assets/troll.gif" style="min-width:100%; min-height:120%; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); display:none; z-index:10" id='troll')
+        #container(style={background:'white', padding:'20px'})
+            canvas(id='canvas' style={position:'absolute', left:'10vw', top:'60px', width:'80vw', height:'400px', background:'black'})
+            #controls
+                #buttons
+                    button(id='refreshButton') Refresh ⤾
+                    button(id='exportSVG') Télécharger ⤓
+                    button(id='micButton' onclick='micOnOff(event)' style='display: inline-block;')
+                        img(alt='Start' id='startImg' src='../assets/sandbox/mic.gif')
+                form
+                    //- input(type='checkbox' id='translateXYCheck' name='translateXY')
+                    //- |   translateXY
+                    input(type='checkbox' id='extendCheck' name='extend' checked style='display: none;')
+                    //- |   extend
+                    //- input(type='checkbox' id='bounceCheck' name='extend' checked)
+                    //- |   Collision with borders
+                    //- input(type='checkbox' id='extendXCheck' name='extendX')
+                    //- |   extendX
+                    //- input(type='checkbox' id='extendYCheck' name='extendX')
+                    //- |   extendY
+                    #numInputs
+                        .in#bgbutton
+                        .in
+                            #scaleHider.off
+                            label Échelle d'affichage&nbsp;&nbsp;
+                                span.symbols#scale.auto.emojis 🔍
+                            input(type='number' id='scaleValue' value="1" step='0.01' min='0.01')
+                        .in
+                            label Extension des lettres&nbsp;&nbsp;
+                                span.symbols.up3 Ⓔ
+                            input(type='number' id='extValue' value='10' step='.1')
+                        .in
+                            label Extension 
+                                u verticales
+                                |  des lettres&nbsp;&nbsp;
+                                span.symbols ↕
+                            input(type='number' id='extYValue' value='0' step='0.1')
+                        .in
+                            label Extension des particules&nbsp;&nbsp;
+                                span.symbols.up3 ◉
+                            input(type='number' id='radValue' value='2' step='0.5' min='0.5')
+                        .in
+                            #colorDiv.symbols
+                            label Teinte Médiane&nbsp;&nbsp;
+                            input(type='number' id='midColorValue' value="150" step='5' min='-360' max='360')
+                        .in
+                            label Variation des Teintes&nbsp;&nbsp;
+                                span.symbols.emojis 🌈
+                            input(type='number' id='colVarValue' value="360" step='10' min='10' max='360')
+                        .notaBene
+                            label (La teinte est une valeur sur le
+                                | 
+                                a(href="https://fr.wikipedia.org/wiki/Teinte_saturation_lumi%C3%A8re") cylindre HSL
+                                |,
+                                br 
+                                | elle est comprise entre 0 et 360)
+                        .in
+                            label Degré d'opacité&nbsp;&nbsp;
+                                span.symbols.up3 ◐
+                            input(type='number' id='opValue' value='0.50' step='0.05' min='0.00' max='1.00')
+                #audioContainer
+                    audio(id='playback' controls)
+            #displays
+                #timeLine
+                .descriptions Timeline
+                #cloth(style='display: none;')
+                    #info(style='visibility: visible;')
+                        p#infoStart(style='display: inline;')
+                            | Cliquez sur le micro et dites un mot, une phrase, ou ce que vous voulez.
+                        p#infoSpeakNow(style='display:none')
+                            | Parlez maintenant.
+                        p#infoNoSpeech(style='display:none')
+                            | Aucune parole n'a été détectée, réglage nécessaire du 
+                            a(href='//support.google.com/chrome/bin/answer.py?hl=en&answer=1407892')
+                                | micro
+                                | ou vos parametres
+                            | .
+                        p#infoNoMicrophone(style='display:none')
+                            | Aucun microphone détecté, veuillez vous assurer qu'un microphone est installé et que les
+                            a(href='//support.google.com/chrome/bin/answer.py?hl=en&answer=1407892')
+                                | paramètres du microphone
+                            |  sont bien configurés.
+                        p#infoAllow(style='display:none')
+                            | Clickez sur le boutton 'Autoriser' ci-dessus pour allumer le microphone.
+                        p#infoDenied(style='display:none')
+                            | Pas d'autorisation d'accès au microphone.
+                        p#infoBlocked(style='display:none')
+                            | Permission d'accès refusée, pour modifier l'autorisation allez sur
+                            | chrome://settings/contentExceptions#media-stream
+                        p#infoUpgrade(style='display:none')
+                            | L'API de reconnaissance vocale n'est pas supportée sur ce navigateur, pour bénéficier de la reconnaissance vocale, faire la mise à jour vers
+                            a(href='//www.google.com/chrome') Chrome
+                            |  version 25 ou plus récent.
+                        p#infoOffline(style='display:none')
+                            | Vous êtes hors ligne, cet outil ne peux pas fonctionner hors connexion.
+                        p#infoAgain(style='display:none')
+                            | Aucune parole n'a été détectée, veuillez réessayer.
+                #result
+                    #resultModif
+                    textarea(rows='20' style="display: none;")
+                    #recognitionSpans
+                        span(class='final' id='finalSpan')
+                        span(class='interim' id='interimSpan')
+                .descriptions Transcription
+        script(language='javascript', type='text/javascript', src="//cdn.jsdelivr.net/mojs/latest/mo.min.js")
+        script(language='javascript', type='text/javascript', src="js/poster_7/loading.js")
+    //- textarea(id='textarea' onkeyup='parseTextarea()')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/setup.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/setupAudio.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/timeLine.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/analyser.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/translator.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/updater.js')
+    script(language='javascript', type='text/paperscript', src='/js/poster_7/draw.js', canvas='canvas')
+    script(language='javascript', type='text/javascript', src='/js/poster_7/controler.js')

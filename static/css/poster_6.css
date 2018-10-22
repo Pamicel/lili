@@ -1,0 +1,64 @@
+body {
+    padding: 20px;
+}
+
+#container {
+    text-align: center;
+    overflow: hidden;
+}
+
+#info, #result {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 100px;
+}
+
+#info, #result {
+    text-align: center;
+}
+
+#buttons {
+    /*width: 150px;*/
+    text-align: left;
+    vertical-align: middle;
+}
+
+button {
+    margin: 20px 0 0 20px;
+    padding: 20px;
+    border: 0;
+    border-radius: 100px;
+}
+
+button:focus {
+    outline:0;
+}
+
+button#start_button {
+    padding: 0;
+    border: none;
+}
+
+button img {
+    border-radius: 100px;
+}
+
+#numInputs {
+    width:400px;
+    text-align: right;
+    margin: auto;
+}
+
+.in {
+    margin: 10px auto;
+}
+
+input[type='number']{
+    width: 50px;
+    text-align: right;
+}
+
+audio, #result {
+    clear: left;
+}

@@ -1,0 +1,12 @@
+
+html
+    head
+        meta(charset='UTF-8')
+        title Ostendo
+        script(language='javascript', type='text/javascript', src='/js/libraries/paper-full.js')
+        script(language='javascript', type='text/paperscript', src='/js/ostendo_1/sketch.js', canvas='mycanvas')
+
+        //- link(rel='stylesheet', type='text/css', href='/css/style.css')
+    body(style={margin:0, padding:0})
+        canvas(id="mycanvas" style={width:'100vw', height:'100vh', "-webkit-user-drag": none, "user-select": none, "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)"} resize="true")
+

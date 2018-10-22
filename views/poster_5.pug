@@ -1,0 +1,81 @@
+html
+    head
+        meta(charset='UTF-8')
+        title Poster
+        link(rel='icon', type='image/png', href='../assets/favicon.png')
+        script(language='javascript', type='text/javascript', src='/js/libraries/jquery.min.js')
+        script(language='javascript', type='text/javascript', src='/js/libraries/paper-full.js')
+        script(language='javascript', type='text/javascript', src='/js/libraries/watson-speech.min.js')
+
+        script(language='javascript', type='text/javascript', src='/js/objects/Vehicle.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/NodeLetter.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/TypoNode.js')
+        script(language='javascript', type='text/javascript', src='/js/objects/Punch.js')
+        script(language='javascript', type='text/javascript', src='/js/data/allLetters.js')
+        script(language='javascript', type='text/javascript', src='/js/recognition/watson.js')
+        script(src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous")
+
+        link(rel='stylesheet', type='text/css', href='/css/poster_5.css')
+    body(style={margin:'70vh 0 0 0', background:'black'})
+        #container(style={background:'white', padding:'20px'})
+            canvas(id='canvas' style={position:'absolute', left:'10vw', top:'10vh', width:'80vw', height:'50vh', background:'black', padding:'20px'})
+            #result
+                span(class="final" id="finalSpan")
+                span(class="interim" id="interimSpan")
+            #info(style='visibility: visible;')
+                p#infoStart(style='display: inline;')
+                    | Click on the microphone icon and begin speaking for as long as you like.
+                p#infoSpeakNow(style='display:none')
+                    | Speak now.
+                p#infoNoSpeech(style='display:none')
+                    | No speech was detected. You may need to adjust your 
+                    a(href='//support.google.com/chrome/bin/answer.py?hl=en&answer=1407892')
+                        | microphone
+                        | settings
+                    | .
+                p#infoNoMicrophone(style='display:none')
+                    | No microphone was found. Ensure that a microphone is installed and that
+                    a(href='//support.google.com/chrome/bin/answer.py?hl=en&answer=1407892')
+                        | microphone settings
+                    |  are configured correctly.
+                p#infoAllow(style='display:none')
+                    | Click the "Allow" button above to enable your microphone.
+                p#infoDenied(style='display:none')
+                    | Permission to use microphone was denied.
+                p#infoBlocked(style='display:none')
+                    | Permission to use microphone is blocked. To change, go to
+                    | chrome://settings/contentExceptions#media-stream
+                p#infoUpgrade(style='display:none')
+                    | Web Speech API is not supported by this browser. Upgrade to 
+                    a(href='//www.google.com/chrome') Chrome
+                    |  version 25 or later.
+                p#infoOffline(style='display:none')
+                    | You are offline, the Speech to text utility can't be reach.
+            audio(id="playback" controls)
+            button(id="micButton" onclick="micOnOff(event)" style="display: inline-block;")
+                img(alt="Start" id="startImg" src="../assets/sandbox/mic.gif")
+            form
+                //- input(type="checkbox" id="translateXYCheck" name="translateXY")
+                //- |   translateXY
+                input(type="checkbox" id="extendCheck" name="extend" checked style="display: none;")
+                //- |   extend
+                //- input(type="checkbox" id="extendXCheck" name="extendX")
+                //- |   extendX
+                //- input(type="checkbox" id="extendYCheck" name="extendX")
+                //- |   extendY
+                input(type="range" id="extRange" min="0" max="100" list='tickmarks')
+                |   extension
+                datalist(id="tickmarks")
+                    option(value="0")
+                    option(value="50")
+                    option(value="100")
+            button(id="refreshButton") animate
+            button(id="exportSVG") Download
+    //- textarea(id="textarea" onkeyup="parseTextarea()")
+    script(language='javascript', type='text/javascript', src='/js/poster_5/setup.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_5/setupAudio.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_5/analyser.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_5/translator.js')
+    script(language='javascript', type='text/javascript', src='/js/poster_5/updater.js')
+    script(language='javascript', type='text/paperscript', src='/js/poster_5/draw.js', canvas='canvas')
+    script(language='javascript', type='text/javascript', src='/js/poster_5/controler.js')
